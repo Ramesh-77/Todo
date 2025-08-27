@@ -1,19 +1,13 @@
-import zod from "zod";
 import bcrypt from "bcrypt";
-import { User } from "../model/models.js";
+import { User } from "../model/user.model.js";
 import jwt from "jsonwebtoken";
+import { zodUserLoginSchema, zodUserRegisterSchema } from "../zod/validation.schema.js";
 
 // controller for user registration
 export const userRegisterController = async (req, res) => {
   const { name, email, password } = req.body;
   // for validating user input
-  const zodUserSchema = zod.object({
-    name: zod.string().min(1),
-    email: zod.email(),
-    password: zod.string().min(6),
-  });
-
-  const validateUser = zodUserSchema.safeParse({
+  const validateUser = zodUserRegisterSchema.safeParse({
     name: name,
     email: email,
     password: password,
@@ -45,12 +39,9 @@ export const userRegisterController = async (req, res) => {
 
 // controller for user login
 export const userLoginController = async (req, res) => {
-  const zodLoginSchema = zod.object({
-    email: zod.email(),
-    password: zod.string(),
-  });
   const { email, password } = req.body;
-  const validateLogin = zodLoginSchema.safeParse({
+  // for validating user input
+  const validateLogin = zodUserLoginSchema.safeParse({
     email: email,
     password: password,
   });
@@ -68,7 +59,6 @@ export const userLoginController = async (req, res) => {
     const findExistingUser = await User.findOne({
       email: validateLogin.data.email,
     });
-    console.log("findExistingUser", findExistingUser);
     if (!findExistingUser) {
       return res.status(400).json({ message: "User does not exist" });
     }
