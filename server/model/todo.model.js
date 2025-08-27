@@ -20,4 +20,12 @@ const todoScehma = new Schema({
     }
 }, {timestamps: true})
 
+
+// remove creatorId from the response
+todoScehma.methods.toJSON = function() {
+    const obj = this.toObject();
+    delete obj.creatorId;
+    return obj;
+}
+
 export const Todo = model("todo", todoScehma);
