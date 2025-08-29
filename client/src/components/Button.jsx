@@ -30,7 +30,7 @@ export const Button = ({ size, variant, text, className, startIcon, endIcon, ...
 
     return (
         // <button size, Text, startIcon, endIcon, variant></button>
-        <button className={buttonStyles} {...props}>
+        <button className={buttonStyles}{...props}>
             {startIcon && <span className={startIconStyles}>{startIcon}</span>}
             {text}
             {endIcon && <span className={endIconStyles}>{endIcon}</span>}
