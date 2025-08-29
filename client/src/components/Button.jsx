@@ -3,8 +3,8 @@ import clsx from "clsx"
 // define sizes 
 const sizes = {
     small: 'px-3 py-1 text-sm',
-    medium: 'px-4 py-2 text-base',
-    large: 'px-6 py-3 text-lg',
+    medium: 'px-5 py-2 text-base',
+    large: 'px-5 py-2 text-lg',
 }
 
 // define variants
@@ -13,22 +13,27 @@ const variants = {
     secondary: 'bg-gray-500 text-white hover:bg-gray-600',
     danger: 'bg-red-500 text-white hover:bg-red-600',
 }
-const defaultStyles = 'rounded rounded-xs'
+// const defaultStyles = 'rounded rounded-xs'
+const baseStyles = "rounded text-center inline-flex items-center justify-center";
+const startIconStyles = 'mr-2'
+const endIconStyles = 'ml-2'
 
-export const Button = ({size, variant, text, className, startIcon, endIcon, ...props}) => {
+export const Button = ({ size, variant, text, className, startIcon, endIcon, ...props }) => {
     // define button styles based on size and variant using clsx package
     const buttonStyles = clsx(
-        defaultStyles, 
+        baseStyles,
         sizes[size],
         variants[variant],
-        className
+
     )
+    // // for icon css
+
     return (
         // <button size, Text, startIcon, endIcon, variant></button>
-        <button className={buttonStyles}>
-            {startIcon && <span className="mr-2 inline-block">{startIcon}</span>}
+        <button className={buttonStyles} {...props}>
+            {startIcon && <span className={startIconStyles}>{startIcon}</span>}
             {text}
-            {endIcon && <span className="ml-2">{endIcon}</span>}
+            {endIcon && <span className={endIconStyles}>{endIcon}</span>}
         </button>
     )
 }
