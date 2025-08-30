@@ -1,37 +1,39 @@
+import { useState } from "react"
 import { AcademicIcon } from "./assets/icons/academic.jsx"
-// import { Button } from "./components/Button.jsx"
-
+import { AuthWrapper } from "./components/AuthWrapper.jsx"
 import FloatingInput from "./components/FloatingInput.jsx"
-import React from "react"
-
 
 function App() {
-  const [fullName, setFullName] = React.useState("")
-
+const [email, setEmail] = useState("")
+const [password, setPassword] = useState("")
+const handleChange = (e) => {
+    const {name, value} = e.target;
+    if(name === "email") setEmail(value)
+    else if(name === "password") setPassword(value)
+}
   return (
     <>
-      <h1>Hi reamesh</h1>
-        <FloatingInput
-        id="fullName"
-        label="Email"
-        value={fullName}
-        type="email"
-        onChange={(e) => setFullName(e.target.value)}
-        icon={<AcademicIcon size="inputFieldIcon" />}
-      />
-      
-      {/* <Button 
-      size="small" 
-      variant="primary" 
-      text="Login" 
-      // startIcon={<AcademicIcon size="smallIcon" />} 
-      startIcon={<AcademicIcon size="smallIcon" />} 
-    />
-      <Button size="medium" variant="secondary" text="Login" endIcon={<AcademicIcon size="mediumIcon" />}/>
-      <Button size="large" variant="danger" text="Login" onClick={()=>{
-        alert("button clicked")
-      }} endIcon={<AcademicIcon size="largeIcon" />} /> */}
+      <AuthWrapper>
+        <h1>Sign up form</h1>
+        <form action="">
+          <FloatingInput
+            label="Email"
+            icon={<AcademicIcon size="mediumIcon" />}
+            id="email"
+            type="email"
+            value={email}
+            onChange={handleChange} />
+          <FloatingInput
+            label="Password"
+            icon={<AcademicIcon size="mediumIcon" />}
+            id="password"
+            type="password"
+            value={password}
+            onChange={handleChange} />
+        </form>
+      </AuthWrapper>
     </>
+
   )
 }
 
